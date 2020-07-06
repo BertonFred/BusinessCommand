@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Commande.BusinessCommand
 {
-    public class CommandeCase : BusinessCommandAggregator 
+    public class CommandeCase : AggregatorBusinessCommand 
     {
         public CommandeCase()
         {
             AddCommand( new CommandA() );
-            AddCommand( new BusinessCommandRetry<CommandeEchoueDeuxFois>() );
+            AddCommand( new RetryBusinessCommand<CommandeEchoueDeuxFois>() );
         }
     }
 }

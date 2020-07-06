@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Commande.BusinessCommand
 {
-    public class BusinessCommandAggregator : IBusinessCommand
+    public class AggregatorBusinessCommand : IBusinessCommand
     {
-        public BusinessCommandAggregator()
+        public AggregatorBusinessCommand()
         {
             Commandes = new List<IBusinessCommand>();
         }

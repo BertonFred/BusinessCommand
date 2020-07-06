@@ -43,11 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessCommand\BusinessCommandRetry.cs" />
-    <Compile Include="BusinessCommand\BusinessCommandAggregator.cs" />
+    <Compile Include="BusinessCommand\RetryBusinessCommand.cs" />
+    <Compile Include="BusinessCommand\AggregatorBusinessCommand.cs" />
     <Compile Include="BusinessCommand\IBusinessCommand.cs" />
+    <Compile Include="CommandBuilder\CommandBuilder.cs" />
+    <Compile Include="CommandBuilder\CommandLocator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBusinessCommand\CreateServerCommand.cs" />
+    <Compile Include="TestBusinessCommand\CreateLocalCommand.cs" />
+    <Compile Include="TestBusinessCommand\CommandeB.cs" />
     <Compile Include="TestBusinessCommand\CommandeCase.cs" />
     <Compile Include="TestBusinessCommand\CommandeEchoueDeuxFois.cs" />
     <Compile Include="TestBusinessCommand\CommandeA.cs" />

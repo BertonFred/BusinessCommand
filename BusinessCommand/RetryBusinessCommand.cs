@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Commande.BusinessCommand
 {
-    public class BusinessCommandRetry<TCOMMAND> : IBusinessCommand
+    public class RetryBusinessCommand<TCOMMAND> : IBusinessCommand
             where TCOMMAND : IBusinessCommand, new()
     {
-        public BusinessCommandRetry(int _RetryCount = DefaultRetryCount, int _WaitBeforeRetry = DefaultWaitBeforeRetry)
+        public RetryBusinessCommand(int _RetryCount = DefaultRetryCount, int _WaitBeforeRetry = DefaultWaitBeforeRetry)
         {
             RetryCount = _RetryCount;
             WaitBeforeRetry = _WaitBeforeRetry;
