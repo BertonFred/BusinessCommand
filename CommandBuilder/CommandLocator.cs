@@ -37,7 +37,7 @@ namespace Commande
             Commandes.Add(cdeDef.CommandType, cdeDef);
         }
 
-        public static T Resolve<T>()
+        public static IBusinessCommand Resolve<T>()
             where T : IBusinessCommand, new()
         {
             CommandDefintion cdeDef = Commandes[typeof(T)];
@@ -55,6 +55,13 @@ namespace Commande
                 Instance = new T();
             }
 
+            return Instance;
+        }
+        public static IBusinessCommand Resolve<T>(Object _CommandRequest)
+            where T : IBusinessCommand, new()
+        {
+            var Instance = Resolve<T>();
+            Instance.CommandRequest = _CommandRequest;
             return Instance;
         }
 

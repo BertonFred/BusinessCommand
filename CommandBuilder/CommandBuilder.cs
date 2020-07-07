@@ -12,6 +12,37 @@ namespace Commande
             CommandeType = null;
         }
 
+        public ICommandBuilder WithLogTrace(bool TraceIn = true, bool TraceOut = true) 
+        {
+            if (LogCommand == null)
+                LogCommand = new LogBusinessCommand();
+
+            LogCommand.LogTraceIn = TraceIn;
+            LogCommand.LogTraceOut = TraceOut;
+
+            return this;
+        }
+
+        public ICommandBuilder WithLogMetier(bool DumpParameter = false)
+        {
+            if (LogCommand == null)
+                LogCommand = new LogBusinessCommand();
+
+            LogCommand.LogMetier = true;
+
+            return this;
+        }
+
+        public ICommandBuilder WithLogPerformance()
+        {
+            if (LogCommand == null)
+                LogCommand = new LogBusinessCommand();
+
+            LogCommand.LogPerformance = true;
+
+            return this;
+        }
+
         public ICommandBuilder ForCommand<T>()
             where T : IBusinessCommand, new()
         {
@@ -41,6 +72,8 @@ namespace Commande
         }
 
         private IBusinessCommand Commande { get; set; }
+        private LogBusinessCommand LogCommand { get; set; }
+
         private Type CommandeType { get; set; }
     }
 

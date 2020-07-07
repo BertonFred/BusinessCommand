@@ -20,6 +20,18 @@ namespace Commande
             //    CdeWithRetry.Execute();
 
             var builder = new CommandBuilder();
+            builder.ForCommand<TodoCreateLocalBC>()
+                    .WithLogMetier()
+                    .Register();
+
+            CommandLocator.Resolve<TodoCreateLocalBC>(
+                            new TodoCreateRequest()
+                            {
+                                Title = "TITRE1",
+                                Check = false
+                            })
+                        .Execute();
+            
             builder .ForCommand<CreateServerCommand>()
                     .WithRetry()
                     .WithLogTrace(TraceIn: true, TraceOut: true)

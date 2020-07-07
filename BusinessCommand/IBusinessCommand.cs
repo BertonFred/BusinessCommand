@@ -9,6 +9,9 @@ namespace Commande.BusinessCommand
     public interface IBusinessCommand
     {
         bool CanExecute();
+
         void Execute();
+
+        object CommandRequest { get; set; }
     }
 }
