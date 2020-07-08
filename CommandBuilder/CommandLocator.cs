@@ -9,7 +9,19 @@ namespace Commande
     {
         static CommandLocator()
         {
-            Commandes = new Dictionary<Type, CommandDefintion>();
+            Commandes = new Dictionary<string, CommandDefintion>();
+        }
+
+        public static void Register(string CommandName,IBusinessCommand Command)
+        {
+            CommandDefintion cdeDef = new CommandDefintion()
+            {
+                CommandType = Command.GetType(),
+                IsSingleton = true,
+                SingletonInstance = Command
+            };
+
+            Commandes.Add(CommandName, cdeDef);
         }
 
         public static void Register<T>()
@@ -22,7 +34,7 @@ namespace Commande
                 SingletonInstance = null
             };
 
-            Commandes.Add(cdeDef.CommandType, cdeDef);
+            Commandes.Add(typeof(T).ToString(), cdeDef);
         }
 
         public static void Register(Type _Type)
@@ -34,29 +46,21 @@ namespace Commande
                 SingletonInstance = null
             };
 
-            Commandes.Add(cdeDef.CommandType, cdeDef);
+            Commandes.Add(_Type.ToString(), cdeDef);
+        }
+
+        public static IBusinessCommand Resolve(string CommandName)
+        {
+            CommandDefintion cdeDef = Commandes[CommandName];
+            return cdeDef.SingletonInstance;
         }
 
         public static IBusinessCommand Resolve<T>()
-            where T : IBusinessCommand, new()
+            where T : IBusinessCommand
         {
-            CommandDefintion cdeDef = Commandes[typeof(T)];
-            T Instance = default(T);
-
-            if (cdeDef.IsSingleton == true)
-            {
-                if (cdeDef.SingletonInstance == null)
-                    cdeDef.SingletonInstance = new T();
-
-                Instance = (T) cdeDef.SingletonInstance;
-            }
-            else 
-            {
-                Instance = new T();
-            }
-
-            return Instance;
+            return Resolve(typeof(T).ToString());
         }
+
         public static IBusinessCommand Resolve<T>(Object _CommandRequest)
             where T : IBusinessCommand, new()
         {
@@ -65,7 +69,7 @@ namespace Commande
             return Instance;
         }
 
-        private static Dictionary<Type,CommandDefintion> Commandes { get; set; }
+        private static Dictionary<string,CommandDefintion> Commandes { get; set; }
     }
 
     public class CommandDefintion

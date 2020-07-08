@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Commande.BusinessCommand
 {
-    public class LogBusinessCommand : IBusinessCommand
+    public class LogBusinessCommand : IDecoratorBusinessCommand
     {
-        public LogBusinessCommand()
+        public LogBusinessCommand(IBusinessCommand _Command)
         {
+            this.Command = _Command;
             LogTraceIn = false;
             LogTraceOut = false;
             LogMetier = false;

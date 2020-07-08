@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Commande.BusinessCommand
 {
-    public class AggregatorBusinessCommand : IBusinessCommand
+    public class AggregatorBusinessCommand : IDecoratorBusinessCommand
     {
         public AggregatorBusinessCommand()
         {
@@ -38,5 +38,6 @@ namespace Commande.BusinessCommand
         }
 
         private List<IBusinessCommand> Commandes { get; set; }
+        public object CommandRequest { get; set; }
     }
 }

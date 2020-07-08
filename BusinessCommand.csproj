@@ -43,10 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessCommand\IDecoratorBusinessComand.cs" />
     <Compile Include="BusinessCommand\LogBusinessCommand.cs" />
     <Compile Include="BusinessCommand\RetryBusinessCommand.cs" />
     <Compile Include="BusinessCommand\AggregatorBusinessCommand.cs" />
     <Compile Include="BusinessCommand\IBusinessCommand.cs" />
+    <Compile Include="CommandBuilder\ICommandBuilder.cs" />
     <Compile Include="CommandBuilder\CommandBuilder.cs" />
     <Compile Include="CommandBuilder\CommandLocator.cs" />
     <Compile Include="Program.cs" />
@@ -54,12 +56,8 @@
     <Compile Include="TodoCommand\TodoCreateServerBC.cs" />
     <Compile Include="TodoCommand\TodoCreateRequest.cs" />
     <Compile Include="TodoCommand\TodoCreateLocalBC.cs" />
-    <Compile Include="TestBusinessCommand\CreateServerCommand.cs" />
-    <Compile Include="TestBusinessCommand\CreateLocalCommand.cs" />
-    <Compile Include="TestBusinessCommand\CommandeB.cs" />
-    <Compile Include="TestBusinessCommand\CommandeCase.cs" />
+    <Compile Include="TodoCommand\TodoCreateLocalAndServerBC.cs" />
     <Compile Include="TestBusinessCommand\CommandeEchoueDeuxFois.cs" />
-    <Compile Include="TestBusinessCommand\CommandeA.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

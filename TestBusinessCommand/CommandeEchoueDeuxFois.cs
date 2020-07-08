@@ -37,5 +37,6 @@ namespace Commande.BusinessCommand
         }
 
         private int CallCount = 0;
+        public object CommandRequest { get; set; }
     }
 }

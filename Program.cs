@@ -19,50 +19,34 @@ namespace Commande
             //if (CdeWithRetry.CanExecute() == true)
             //    CdeWithRetry.Execute();
 
-            var builder = new CommandBuilder();
-            builder.ForCommand<TodoCreateLocalBC>()
-                    .WithLogMetier()
-                    .Register();
+            new CommandBuilder()
+                   .ForCommand<TodoCreateLocalBC>()
+                   .WithLogMetier()
+                   .Register("TodoCreateLocalBC");
 
-            CommandLocator.Resolve<TodoCreateLocalBC>(
-                            new TodoCreateRequest()
-                            {
-                                Title = "TITRE1",
-                                Check = false
-                            })
-                        .Execute();
-            
-            builder .ForCommand<CreateServerCommand>()
-                    .WithRetry()
-                    .WithLogTrace(TraceIn: true, TraceOut: true)
-                    .WithLogMetier(DumpParameter: true)
-                    .WithLogPerformance()
-                    .WithCircuitBreakerCommand(CreateLocalCommand)
-                    .WithRetry(RetryCount: 3, WaitUntilRetry: 3000)
-                    .Register();
+            var todoCreateLocalBC = CommandLocator.Resolve("TodoCreateLocalBC");
+            todoCreateLocalBC.Execute();
 
-            builder.AggregateCommand<CreateArticleOnServerCommand,CreateArticleLocalCommand>("CreateArticle")
-                    .WithLogTrace(TraceIn: true, TraceOut: true)
-                    .WithLogMetier(DumpParameter: true)
-                    .WithLogPerformance()
-                    .WithRetry(RetryCount: 3, WaitUntilRetry: 3000)
-                    .Register();
+            new CommandBuilder()
+                   .ForCommand<TodoCreateServerBC>()
+                   .WithLogMetier()
+                   .WithLogPerformance()
+                   .Register("TodoCreateServerBC");
 
-            builder .ForCommand<CommandA>()
-                    .WithLogTrace(TraceIn: true, TraceOut: true)
-                    .WithLogMetier(DumpParameter: true)
-                    .WithLogPerformance()
-                    .WithRetry(RetryCount: 3, WaitUntilRetry: 3000)
-                    .Register();
+            var todoCreateServerBC = CommandLocator.Resolve("TodoCreateServerBC");
+            todoCreateServerBC.Execute();
 
-            IBusinessCommand cde =  CommandLocator.Resolve<CommandA>();
-            CommandA cdea = CommandLocator.Resolve<CommandA>();
+            new CommandBuilder()
+                   .ForCommand<TodoCreateLocalBC>()
+                   .WithLogMetier()
+                   .WithLogPerformance()
+                   .ForCommand<TodoCreateServerBC>()
+                   .WithLogMetier()
+                   .WithLogPerformance()
+                   .Register("TodoCreateBC");
 
-
-
-            IBusinessCommand CdeCase = new CommandeCase();
-            if (CdeCase.CanExecute() == true)
-                CdeCase.Execute();
+            var todoCreateBC = CommandLocator.Resolve("TodoCreateBC");
+            todoCreateBC.Execute();
 
             Console.WriteLine("Appuyer sur une touche");
             Console.ReadKey();
