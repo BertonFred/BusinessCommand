@@ -41,7 +41,7 @@ namespace Commande
             where T : IBusinessCommand, new()
         {
             CommandDefintion cdeDef = Commandes[typeof(T)];
-            T Instance = default;
+            T Instance = default(T);
 
             if (cdeDef.IsSingleton == true)
             {
